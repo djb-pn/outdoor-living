@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outdoor Living Solutions | Picks Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --burgundy: #670000;
+            --grey: #595959;
+            --light-grey: #e8e8e8;
+            --white: #ffffff;
+            --hover-burgundy: #8b0000;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--grey);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-grey) 100%);
+            padding: 2rem 5%;
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo-container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            color: var(--burgundy);
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        /* CTA Button */
+        .cta-container {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--burgundy) 0%, var(--hover-burgundy) 100%);
+            color: var(--white);
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(103, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(103, 0, 0, 0.4);
+        }
+
+        /* Accordion */
+        .category {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--light-grey);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px var(--shadow);
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .category:hover {
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .category-header {
+            background: linear-gradient(90deg, var(--grey) 0%, var(--grey) calc(100% - 80px), var(--burgundy) calc(100% - 80px), var(--burgundy) 100%);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .category-header:hover {
+            background: var(--burgundy);
+        }
+
+        .category-header h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .category-toggle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+            width: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: -2rem;
+        }
+
+        .category.active .category-toggle {
+            transform: rotate(180deg);
+        }
+
+        .category-preview {
+            padding: 2rem;
+            background: var(--white);
+        }
+
+        .preview-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--light-grey) 0%, #f5f5f5 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--grey);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+            border: 2px dashed #ccc;
+        }
+
+        .preview-description {
+            color: var(--grey);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: var(--white);
+        }
+
+        .category.active .category-content {
+            max-height: 10000px;
+        }
+
+        .category-inner {
+            padding: 2rem;
+            border-top: 2px solid var(--light-grey);
+        }
+
+        /* Subcategories */
+        .subcategory {
+            margin-bottom: 3rem;
+        }
+
+        .subcategory:last-child {
+            margin-bottom: 0;
+        }
+
+        .subcategory h3 {
+            color: var(--burgundy);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--burgundy);
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .subcategory-description {
+            color: var(--grey);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid var(--light-grey);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px var(--shadow);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow);
+            border-color: var(--burgundy);
+        }
+
+        .product-logo {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(135deg, #f8f8f8 0%, var(--light-grey) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--grey);
+            font-size: 0.85rem;
+            border: 1px dashed #ccc;
+        }
+
+        .product-card a {
+            color: var(--burgundy);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            display: block;
+        }
+
+        .product-card a:hover {
+            color: var(--hover-burgundy);
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--burgundy);
+            color: var(--white);
+            padding: 3rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .category-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .preview-content {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-image {
+                height: 180px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 2rem 4%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1.5rem 4%;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+
+            .category-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .category-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .category-inner {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="26264_Picks-Gallery.png" alt="Picks Gallery - Fire • Stone • Glass">
+            </div>
+            <h1>OUTDOOR LIVING SOLUTIONS</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="cta-container">
+            <a href="#consultation-form" class="cta-button">REQUEST CONSULTATION</a>
+        </div>
+
+        <!-- Fire Features Category -->
+        <div class="category">
+            <div class="category-header">
+                <h2>Fire Features</h2>
+                <span class="category-toggle">▼</span>
+            </div>
+            <div class="category-preview">
+                <div class="preview-content">
+                    <div class="preview-image">Representative Fire Feature Image</div>
+                    <p class="preview-description">Transform your outdoor space into a warm, inviting retreat with premium fire features. From elegant outdoor fireplaces to contemporary fire tables and mesmerizing fire pits, create the perfect ambiance for entertaining and relaxation year-round.</p>
+                </div>
+            </div>
+            <div class="category-content">
+                <div class="category-inner">
+                    <!-- Outdoor Fireplaces -->
+                    <div class="subcategory">
+                        <h3>Outdoor Fireplaces</h3>
+                        <p class="subcategory-description">Elegant outdoor fireplaces that serve as stunning focal points while providing comfortable warmth for your outdoor living areas.</p>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.napoleonproducts.com/en/us/outdoor-living/products/outdoor-gas-fireplaces" target="_blank">Outdoor Gas Fireplaces | Napoleon® USA Fireplaces</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.barbarajeancollection.com/" target="_blank">Barbara Jean Collection</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.majesticproducts.com/outdoor-fireplaces" target="_blank">Majestic Outdoor Fireplaces</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://superiorfireplaces.us.com/" target="_blank">Superior</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.earthcore.com/fireplaces" target="_blank">Earthcore Industries: Fireplaces - Isokern Brand Products</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.americanfyredesigns.com/" target="_blank">American Fyre Designs</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fire Tables -->
+                    <div class="subcategory">
+                        <h3>Fire Tables</h3>
+                        <p class="subcategory-description">Multi-functional fire tables that combine beautiful fire features with practical gathering spaces for dining and entertaining.</p>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.stollindustries.com/" target="_blank">Fire Tables - Stoll Industries | 50 Years of Craftsmanship</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.napoleonproducts.com/en/us/outdoor-living/products/outdoor-fire-tables" target="_blank">Outdoor Fire Tables | Napoleon</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://theoutdoorplus.com/collections/best-sellers" target="_blank">Best Sellers | The Outdoor Plus</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://outdoorgreatrooms.com/collections/all" target="_blank">All – Outdoor GreatRooms</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.grandcanyongaslogs.com/outdoor/" target="_blank">Outdoor - Grand Canyon Gas Logs</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fire Pits -->
+                    <div class="subcategory">
+                        <h3>Fire Pits</h3>
+                        <p class="subcategory-description">Versatile fire pits that create a cozy gathering place and extend your outdoor season with warmth and ambiance.</p>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.napoleonproducts.com/en/us/outdoor-living/products/fire-pits" target="_blank">Napoleon Fire Pits</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fire Glass & Accessories -->
+                    <div class="subcategory">
+                        <h3>Fire Glass & Accessories</h3>
+                        <p class="subcategory-description">Premium fire glass, lava rocks, burners, and complete fire features to customize and enhance your outdoor fire experience.</p>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://hpcfire.com/product-category/complete-fire-features/" target="_blank">Complete Fire Features Archives - HPC Fire</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://americanfireproducts.com/" target="_blank">Fire Glass, Lava Rocks & Burners for Fire Pros | American Fire Products</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Outdoor Kitchens and Grills Category -->
+        <div class="category">
+            <div class="category-header">
+                <h2>Outdoor Kitchens and Grills</h2>
+                <span class="category-toggle">▼</span>
+            </div>
+            <div class="category-preview">
+                <div class="preview-content">
+                    <div class="preview-image">Representative Outdoor Cooking Image</div>
+                    <p class="preview-description">Elevate your outdoor culinary experience with professional-grade cooking solutions. From complete outdoor kitchen islands to premium grills and accessories, create the ultimate outdoor entertaining space that rivals any indoor kitchen.</p>
+                </div>
+            </div>
+            <div class="category-content">
+                <div class="category-inner">
+                    <!-- Islands -->
+                    <div class="subcategory">
+                        <h3>Islands</h3>
+                        <p class="subcategory-description">Complete outdoor kitchen island solutions that provide functionality, storage, and style for the ultimate outdoor cooking experience.</p>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.montalpi.com/" target="_blank">Mont Alpi | The Ultimate Outdoor Cooking Experience</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://ambiancefireplaces.com/outdoor/bistro-outdoor-kitchen-island/" target="_blank">Bistro Outdoor Kitchen Island - Ambiance®</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.blazegrills.com/collections/outdoor-kitchen-islands" target="_blank">Outdoor Kitchen Islands - Blaze Grills</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.napoleonproducts.com/en/us/grills/products/outdoor-kitchen-islands" target="_blank">Outdoor Kitchen Grills, Islands & Grill Heads | Napoleon® USA</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://housewarmingsoutdoor.com/collections/outdoor-kitchen-islands" target="_blank">Outdoor Kitchen Islands — Housewarmings Outdoor</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://hpcfire.com/product-category/outdoor-kitchens/kitchen-islands/" target="_blank">Kitchen Islands - HPC Fire</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.outdoorkitchenpro.com/" target="_blank">Outdoor Kitchens for the Patio | Custom Designs | Made in the USA</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.weatherstrong.com/" target="_blank">WeatherStrong® Outdoor Cabinets | Durable, Stylish & Weatherproof</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.firemagicgrills.com/islands" target="_blank">Islands - Fire Magic Grills</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://durabull.com/" target="_blank">DuraBull Custom Outdoor Kitchen Collection</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.outdoorkitchenconcepts.com/" target="_blank">Outdoor Kitchens and Grills - Premium Customizable Designs</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Island and Structure Accessories -->
+                    <div class="subcategory">
+                        <h3>Island and Structure Accessories</h3>
+                        <p class="subcategory-description">Premium accessories and appliances to complete your outdoor kitchen, including ice machines, refrigeration, and storage solutions.</p>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.scotsman-ice.com/en-us/residential" target="_blank">Scotsman Residential Ice Machines</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grills and Cooking (Portable) -->
+                    <div class="subcategory">
+                        <h3>Grills and Cooking (Portable)</h3>
+                        <p class="subcategory-description">Portable grilling solutions that offer flexibility and convenience without compromising on performance or quality.</p>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.napoleonproducts.com/en/us/grills/products/grill-carts" target="_blank">Stainless Steel Grill Cart Collection - Premium Steel BBQ Carts</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://greenmountaingrills.com/" target="_blank">Green Mountain Grills: Quality Wood Pellet BBQ Grills & Gear</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grills and Cooking (Built-In or Portable) -->
+                    <div class="subcategory">
+                        <h3>Grills and Cooking (Built-In or Portable)</h3>
+                        <p class="subcategory-description">Versatile premium grills designed for both built-in installations and portable use, offering professional cooking performance for any outdoor setup.</p>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.broilmaster.com/" target="_blank">Broilmaster Grills | Stainless Gas Grills</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://ambiancefireplaces.com/outdoor/kamado-25-ceramic-charcoal-smoker-bbq-grill/" target="_blank">Kamado 25 Ceramic Charcoal Smoker BBQ Grill - Ambiance®</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://thebastard.com/en-us/" target="_blank">The Bastard - Serious Outdoor Cooking - BBQ - Accessories</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.solairegasgrills.com/" target="_blank">Built-In Gas Grills | Solaire® Gas Grills</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://twineaglesgrills.com/" target="_blank">Twin Eagles</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.dometicoutdoorkitchen.com/" target="_blank">Dometic Luxury Built in Grills</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.blazegrills.com/" target="_blank">Blaze Grills - Premium Grills & Outdoor Kitchen Equipment</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://videlusa.com/" target="_blank">Videl Grills – Videl USA</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://wildfire-outdoor.com/" target="_blank">Wildfire Outdoor Living</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.coyoteoutdoor.com/" target="_blank">Coyote Outdoor Living | Premium Gen 3 & Pellet Grills for Outdoor Cooking</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://bullbbq.com/" target="_blank">Stainless Steel Outdoor Grill Heads | Bull BBQ Official Website</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.napoleonproducts.com/en/us/grills" target="_blank">Product Search | Napoleon</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://haloproductsgroup.com/" target="_blank">Quality Outdoor Cooking Equipment | Halo Products Group</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://legriddle.com/" target="_blank">LeGriddle</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.alfaforni.com/en-us" target="_blank">Alfa Forni | Made in Italy Pizza Ovens</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.napoleonproducts.com/en/us/grills/products/grills" target="_blank">Grills | Napoleon</a>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-logo">Logo Placeholder</div>
+                                <a href="https://www.primogrill.com/" target="_blank">Primo Ceramic Grills | American Made, Amazing Flavor</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Heating, Cooling and Wellness Category -->
+        <div class="category">
+            <div class="category-header">
+                <h2>Heating, Cooling and Wellness</h2>
+                <span class="category-toggle">▼</span>
+            </div>
+            <div class="category-preview">
+                <div class="preview-content">
+                    <div class="preview-image">Representative Outdoor Accessories Image</div>
+                    <p class="preview-description">Complete your outdoor living space with essential accessories including precision thermometers, elegant umbrellas, efficient heaters, ventilation solutions, and premium refrigeration to enhance comfort and functionality.</p>
+                </div>
+            </div>
+            <div class="category-content">
+                <div class="category-inner">
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.maverickhousewares.com/" target="_blank">Maverick Thermometers | Meat, BBQ, and Grilling Thermometers</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.shadowspec.com/us/" target="_blank">Marine-grade Patio Umbrellas | Shadowspec Umbrellas USA</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.infratech-usa.com/" target="_blank">Infratech Official Site - Premium Residential and Commercial Infrared Electric Heaters</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.zephyronline.com/products/patio-heaters/radiant-patio-heater/" target="_blank">Radiant Patio Heater | Zephyr</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.zephyronline.com/products/range-hoods/cypress-wall-mounted-outdoor-range-hood-ak7854cs/" target="_blank">Cypress Wall Mounted Outdoor Range Hood | AK7854CS</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.modernaire.com/" target="_blank">Product Information - Modern Aire</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.zephyronline.com/products/wine-coolers/presrv-wine-and-beverage-cooler/" target="_blank">Presrv™ Wine and Beverage Cooler | Beverage Cooler | Zephyr</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.uline.com/Grp_423/Refrigerators" target="_blank">residential products refrigerators outdoor refrigerators</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://ambiancefireplaces.com/outdoor/spas/" target="_blank">Ambiance® Spas - Ambiance®</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.napoleonproducts.com/en/us/outdoor-living/products/outdoor-heating" target="_blank">Outdoor Heating | Fire Pits and Flame Tables | Napoleon® USA</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://temptong.com/" target="_blank">Multi Function Tongs + Digital Thermometer | TempTong</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.frico.net/en/" target="_blank">Infrared Heaters for Home, Construction, Patio & Factories</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://www.napoleonproducts.com/en/us/outdoor-living/products/patio-heaters" target="_blank">Napoleon Patio Heaters</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Outdoor Structures and Shade Category -->
+        <div class="category">
+            <div class="category-header">
+                <h2>Outdoor Structures and Shade</h2>
+                <span class="category-toggle">▼</span>
+            </div>
+            <div class="category-preview">
+                <div class="preview-content">
+                    <div class="preview-image">Representative Structures & Pergolas Image</div>
+                    <p class="preview-description">Define and enhance your outdoor living areas with beautifully crafted structures and pergolas that provide shade, architectural interest, and a sense of place while extending your living space into the outdoors.</p>
+                </div>
+            </div>
+            <div class="category-content">
+                <div class="category-inner">
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://baypointeoutdoors.com/collections/pergolas-and-pavilions" target="_blank">Berlin Gardens Pergolas and Pavilions — Bay Pointe Outdoors</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://housewarmingsoutdoor.com/collections/outdoor-rooms" target="_blank">Outdoor Rooms — Housewarmings Outdoor</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://housewarmingsoutdoor.com/collections/pergolas" target="_blank">Pergolas — Housewarmings Outdoor</a>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-logo">Logo Placeholder</div>
+                            <a href="https://visscherspecialty.com/" target="_blank">Visscher Specialty</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Safety and Design Guidelines Category -->
+        <div class="category">
+            <div class="category-header">
+                <h2>Safety and Design Guidelines</h2>
+                <span class="category-toggle">▼</span>
+            </div>
+            <div class="category-preview">
+                <div class="preview-content">
+                    <div class="preview-image">Safety Guidelines Image</div>
+                    <p class="preview-description">Learn essential safety guidelines and best practices for designing and installing outdoor kitchens and grilling areas to ensure a safe and enjoyable outdoor cooking experience for you and your family.</p>
+                </div>
+            </div>
+            <div class="category-content">
+                <div class="category-inner">
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-logo">📄 Article</div>
+                            <a href="#safety-article" target="_blank">Outdoor Kitchen Design for Barbeque Grill Safety</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <a href="#consultation-form" class="cta-button">REQUEST CONSULTATION</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Picks Gallery</strong></p>
+            <p>Fire • Stone • Glass</p>
+            <p><a href="https://picksgallery.com" target="_blank">picksgallery.com</a></p>
+            <p>Transform Your Outdoor Living Space</p>
+        </div>
+    </footer>
+
+    <script>
+        // Accordion functionality
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const category = this.parentElement;
+                const isActive = category.classList.contains('active');
+                
+                // Close all categories
+                document.querySelectorAll('.category').forEach(cat => {
+                    cat.classList.remove('active');
+                });
+                
+                // Open clicked category if it wasn't active
+                if (!isActive) {
+                    category.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for CTA buttons
+        document.querySelectorAll('a[href="#consultation-form"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('The consultation form will be available in Phase 2. Thank you for your interest!');
+            });
+        });
+    </script>
+</body>
+</html>
